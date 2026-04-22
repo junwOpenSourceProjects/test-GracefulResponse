@@ -36,31 +36,25 @@ src/main/java/wo1261931780/stGracefulResponse/
 | ResponseAdvice | 响应增强 |
 | ValidationUtils | 参数校验工具 |
 
+## 升级记录
+
+- 2026-04-22: pom.xml 升级 Spring Boot 3.2.5→3.4.4, Java 17→21, Lombok 1.18.40, MyBatis-Plus 3.5.7-boot3, 配置 annotationProcessorPaths
+- 2026-04-22: 源码引用了不存在的类（UserInfoView、Query），仓库本身代码不完整，无法编译
+
 ## 编译问题
 
-**编译问题：Lombok 生成的变量/方法及 MyBatis-Plus 注解在编译时丢失**
+**pom.xml 已修复，但源码存在不完整引用，无法编译通过**
 
-错误信息示例：
+源码缺少以下类定义：
 ```
-cannot find symbol: class TableId
-cannot find symbol: variable IdType
-cannot find symbol: class TableField
-cannot find symbol: variable log
-cannot find symbol: method getId()
+src/main/java/wo1261931780/stGracefulResponse/web/Controller3.java:20 - UserInfoView (不存在)
+src/main/java/wo1261931780/stGracefulResponse/service/QueryService.java:15 - UserInfoView (不存在)
+src/main/java/wo1261931780/stGracefulResponse/service/QueryService.java:15 - Query (不存在)
+src/main/java/wo1261931780/stGracefulResponse/service/impl/QueryServiceImpl.java:23 - UserInfoView, Query (不存在)
+src/main/java/wo1261931780/stGracefulResponse/service/impl/QueryServiceImpl.java:21 - UserInfoMapper (缺少 mybatis-plus 依赖)
 ```
 
-原因分析：
-- Lombok 1.18.x 版本与 JDK 25 不兼容
-- MyBatis-Plus 注解（@TableId/@TableField/@IdType）处理器未能正确执行
-- @Slf4j 生成的 log 变量不存在
-- 自定义类（UserInfo/UserInfoView）可能也依赖 Lombok 生成的代码
-
-建议解决方案：
-1. 升级 Lombok 至 1.18.32+
-2. 升级 MyBatis-Plus 至最新版本
-3. 确保 maven-compiler-plugin 正确配置了 annotationProcessorPaths
-4. 执行 `mvn clean compile` 清理后重试
-5. 如使用 JDK 25，考虑降级至 JDK 21 或 17
+pom.xml 中已添加 mybatis-plus-spring-boot3-starter 依赖，理论上 UserInfoMapper 应继承 BaseMapper<TbUser> 可正常工作，但 UserInfoView 和 Query 类从未创建，属于仓库源码缺陷。
 
 ## 响应格式设计
 
