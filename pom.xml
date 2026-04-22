@@ -5,56 +5,62 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>3.4.4</version>
+		<relativePath/>
 	</parent>
 	<groupId>wo1261931780</groupId>
 	<artifactId>st-GracefulResponse</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>st-GracefulResponse</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Demo project for Spring Boot with graceful-response统一响应封装</description>
 	<properties>
-		<java.version>17</java.version>
-		<!--<spring-native.version>0.12.1</spring-native.version>-->
-		<!--maven的打包配置-->
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
-		<!--编码格式-->
+		<java.version>21</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<lombok.version>1.18.40</lombok.version>
 	</properties>
 	<dependencies>
-		<!--=============================================================================================-->
-		<!--下面两个配置基本地启动，后面的按需修改-->
-		<!--=============================================================================================-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-			<version>3.2.3</version>
 		</dependency>
-		<!--spring网络WEB-->
-		<!--使用SpringMVC构建Web，包括RESTful，应用程序。使用Apache
-		Tomcat作为默认的嵌入式容器。-->
-		<!--里面已经包含了springMVC的内容-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>3.2.5</version>
-			<!--<scope>test</scope>-->
-			<!--上面的scope表示作用范围-->
-			<!--在没有说明的情况下，scope默认就是compile-->
-			<!--如果我把mysql这些数据库驱动jar包设置为runtime-->
-			<!--那么我在日常使用的过程中，是无法访问这些类的-->
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.feiniaojin</groupId>
 			<artifactId>graceful-response</artifactId>
-			<version>3.5.2-boot2</version>
+			<version>3.5.2-boot3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+			<version>3.5.7</version>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
