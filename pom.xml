@@ -14,7 +14,7 @@
 	<name>st-GracefulResponse</name>
 	<description>Demo project for Spring Boot with graceful-response统一响应封装</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>25</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<lombok.version>1.18.40</lombok.version>
