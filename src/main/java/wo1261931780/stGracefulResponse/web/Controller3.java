@@ -1,5 +1,6 @@
 package wo1261931780.stGracefulResponse.web;
 
+import wo1261931780.stGracefulResponse.domain.UserInfoView;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +19,6 @@ public class Controller3 {
 	@RequestMapping("/get")
 	@ResponseBody
 	public UserInfoView get(Long id) {
-		log.info("id={}", id);
 		return UserInfoView.builder().id(id).name("name" + id).build();
 	}
 }

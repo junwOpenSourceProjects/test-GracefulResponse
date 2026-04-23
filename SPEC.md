@@ -1,62 +1,59 @@
-# 项目规格说明书 - test-GracefulResponse
+# test-GracefulResponse 项目规格说明书
 
-## 基本信息
+## 1. 基本信息
 
 | 项目名 | test-GracefulResponse |
 |--------|----------------------|
 | 路径 | /Users/junw/Documents/GitHub/test-GracefulResponse |
-| 简介 | Graceful Response 框架测试项目，演示统一响应格式和异常处理 |
-| 技术栈 | Spring Boot 3.x + Graceful Response + Lombok |
+| 简介 | Graceful Response 统一响应框架测试项目，演示统一响应格式和异常处理 |
+| 技术栈 | Spring Boot 3.4.4 + MyBatis-Plus 3.5.7 + Lombok 1.18.40 |
 | License | AGPL-3.0 |
+| Java | JDK 25 |
 
-## 功能概述
+## 2. 功能概述
 
-- 统一响应格式封装
-- 全局异常处理
-- 参数校验
+- 统一响应格式封装（Result/Reponse）
+- 全局异常处理（GlobalExceptionHandler/NotFoundException）
+- 参数校验（ValidationUtils）
 - 响应增强（ResponseAdvice）
+- 统一异常处理机制
 
-## 项目结构
+## 3. 项目结构
 
 ```
 src/main/java/wo1261931780/stGracefulResponse/
 ├── TestGracefulResponseApplication.java  # 启动类
-├── domain/        # 实体类（TbUser 等）
+├── domain/        # 实体类
+│   ├── TbUser.java         # 用户实体
+│   ├── UserInfoView.java   # 用户信息视图
+│   ├── Query.java          # 查询条件对象
+│   ├── Command.java        # 命令对象
+│   └── Reponse.java        # 响应对象
 ├── service/      # 业务服务层
+│   ├── QueryService.java           # 查询服务接口
+│   ├── impl/QueryServiceImpl.java  # 查询服务实现
+│   └── Service.java                # Service接口
+├── mapper/      # 数据访问层
+│   └── UserInfoMapper.java        # 用户Mapper（继承BaseMapper）
 ├── web/          # 控制器层
-└── config/      # 配置类
+│   ├── Controller2.java  # 控制器2
+│   └── Controller3.java  # 控制器3
+├── config/      # 配置类
+└── exception/  # 异常类
+    └── NotFoundException.java
 ```
 
-## 核心组件
+## 4. 核心组件
 
 | 组件 | 说明 |
 |------|------|
-| Result<T> | 统一响应包装类 |
+| Result<T>/Reponse | 统一响应包装类 |
+| NotFoundException | 自定义异常 |
 | GlobalExceptionHandler | 全局异常处理器 |
 | ResponseAdvice | 响应增强 |
 | ValidationUtils | 参数校验工具 |
 
-## 升级记录
-
-- 2026-04-22: pom.xml 升级 Spring Boot 3.2.5→3.4.4, Java 17→21, Lombok 1.18.40, MyBatis-Plus 3.5.7-boot3, 配置 annotationProcessorPaths
-- 2026-04-22: 源码引用了不存在的类（UserInfoView、Query），仓库本身代码不完整，无法编译
-
-## 编译问题
-
-**pom.xml 已修复，但源码存在不完整引用，无法编译通过**
-
-源码缺少以下类定义：
-```
-src/main/java/wo1261931780/stGracefulResponse/web/Controller3.java:20 - UserInfoView (不存在)
-src/main/java/wo1261931780/stGracefulResponse/service/QueryService.java:15 - UserInfoView (不存在)
-src/main/java/wo1261931780/stGracefulResponse/service/QueryService.java:15 - Query (不存在)
-src/main/java/wo1261931780/stGracefulResponse/service/impl/QueryServiceImpl.java:23 - UserInfoView, Query (不存在)
-src/main/java/wo1261931780/stGracefulResponse/service/impl/QueryServiceImpl.java:21 - UserInfoMapper (缺少 mybatis-plus 依赖)
-```
-
-pom.xml 中已添加 mybatis-plus-spring-boot3-starter 依赖，理论上 UserInfoMapper 应继承 BaseMapper<TbUser> 可正常工作，但 UserInfoView 和 Query 类从未创建，属于仓库源码缺陷。
-
-## 响应格式设计
+## 5. 响应格式设计
 
 ### 成功响应
 ```json
@@ -78,7 +75,15 @@ pom.xml 中已添加 mybatis-plus-spring-boot3-starter 依赖，理论上 UserIn
 }
 ```
 
-## 环境要求
+## 6. 环境要求
 
-- JDK 17+（JDK 25 存在 Lombok 兼容问题）
+- JDK 25
 - Maven 3.6+
+
+## 7. 升级记录
+
+- 2026-04-23: 完整升级 Spring Boot 3.4.4, Java 25, Lombok 1.18.40, MyBatis-Plus 3.5.7-boot3
+- 2026-04-23: 修复源码缺陷，创建缺失的 UserInfoView、Query、Command、Reponse 类
+- 2026-04-23: 修复 QueryServiceImpl 使用 MyBatis-Plus 的 selectById 替代不存在的 findOne 方法
+- 2026-04-23: 修复 insertOrUpdate 返回类型冲突（int → boolean）
+- 2026-04-22: pom.xml 升级 Spring Boot 3.2.5→3.4.4, Java 17→21, Lombok 1.18.40, MyBatis-Plus 3.5.7-boot3

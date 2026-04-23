@@ -1,6 +1,7 @@
 package wo1261931780.stGracefulResponse.service;
 
-import javax.management.Query;
+import wo1261931780.stGracefulResponse.domain.Query;
+import wo1261931780.stGracefulResponse.domain.UserInfoView;
 
 /**
  * Created by Intellij IDEA.

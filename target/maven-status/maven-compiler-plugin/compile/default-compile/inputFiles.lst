@@ -1,5 +1,9 @@
 /Users/junw/Documents/GitHub/test-GracefulResponse/src/main/java/wo1261931780/stGracefulResponse/StGracefulResponseApplication.java
+/Users/junw/Documents/GitHub/test-GracefulResponse/src/main/java/wo1261931780/stGracefulResponse/domain/Command.java
+/Users/junw/Documents/GitHub/test-GracefulResponse/src/main/java/wo1261931780/stGracefulResponse/domain/Query.java
+/Users/junw/Documents/GitHub/test-GracefulResponse/src/main/java/wo1261931780/stGracefulResponse/domain/Reponse.java
 /Users/junw/Documents/GitHub/test-GracefulResponse/src/main/java/wo1261931780/stGracefulResponse/domain/TbUser.java
+/Users/junw/Documents/GitHub/test-GracefulResponse/src/main/java/wo1261931780/stGracefulResponse/domain/UserInfoView.java
 /Users/junw/Documents/GitHub/test-GracefulResponse/src/main/java/wo1261931780/stGracefulResponse/exception/NotFoundException.java
 /Users/junw/Documents/GitHub/test-GracefulResponse/src/main/java/wo1261931780/stGracefulResponse/mapper/UserInfoMapper.java
 /Users/junw/Documents/GitHub/test-GracefulResponse/src/main/java/wo1261931780/stGracefulResponse/service/QueryService.java
